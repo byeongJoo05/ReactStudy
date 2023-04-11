@@ -75,13 +75,13 @@ function App() {
     });
 
     nextId.current += 1;
-  },[users, username, email]);
+  },[username, email]);
 
   const onRemove = useCallback((id) => {
     // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듦
     // = user.id 가 id 인 것을 제거함
     setUsers(users.filter(user => user.id !== id));
-  }, [users]);
+  }, []);
 
   const onToggle = useCallback((id) => {
     setUsers (
@@ -89,7 +89,7 @@ function App() {
         user.id === id ? {...user, active: !user.active} : user
         )
     )
-  }, [users]);
+  }, []);
 
   /*
   useMemo
