@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import ListProp from '../components/ListProp';
 
 const List = () => {
     const [status, setStatus] = useState('');
@@ -7,14 +8,14 @@ const List = () => {
     const [sign, setSign] = useState(false);
 
     const host = process.env.REACT_APP_HOST_NAME
-
     useEffect (() => {
         const getResponse = async () => {
             try{
-            const response = await axios.get(
+            await axios.get(
                 `${host}/listall`
             ).then(response => {
                 const data = response.data
+                console.log(data)
                 setStatus(data.status)
                 setDatas(data.data)
                 setSign(data.ok)
@@ -32,9 +33,9 @@ const List = () => {
   return (
     <div>
         <li>데이터의 상태는~? : {status}</li>
-        {datas.map(data =>(
+        {datas && datas.map( (data, key) => (
             <ul>
-                <li>{data.title} {data.description}</li>
+                <ListProp title={data.title} description={data.description} key={key}/>
             </ul>
         ))}
         <li>성공인가요 실패인가요~? : {sign ? <div>성공</div> : <div>실패</div> }</li>
