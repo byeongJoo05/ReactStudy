@@ -1,10 +1,7 @@
 import React, {useState } from 'react'
-import {useNavigate } from 'react-router-dom';
 import { createModal } from '../api/ModalApi';
 
 const Modal = () => {
-
-    const navigate = useNavigate();
 
     // useState의 object를 이용해 변경을 체킹한다. spread 문법과 연관되어 있다.
     const [inputs, setInputs] = useState({
@@ -18,11 +15,6 @@ const Modal = () => {
 
     // getter는 inputs 배열을 통해 한 번에 controll 한다.
     const {id, pw, nickname, name, jmfront, jmback} = inputs;
-
-    // 뒤로 가기
-    const cancelFunc = () => {
-        navigate("/");
-    }
 
     const postEvent = (e) => {
         const a = createModal('create', inputs)
@@ -62,7 +54,6 @@ const Modal = () => {
             </li>
         </ul>
 
-        <button onClick={cancelFunc}>뒤로 가기</button>
         <button onClick={postEvent}>데이터 보내기</button>
     </div> 
   )
