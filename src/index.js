@@ -6,6 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
+import ReactModal from 'react-modal';
+
+ReactModal.setAppElement('#root');
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -1,17 +1,19 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { Link, Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
-import Modal from './components/Modal';
+import Form from './components/Form';
 import List from './pages/List';
+import PendingParent from './pages/PendingParent';
 
 function App() {
   return (
     <div className="App">
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path="/modal" element={<Modal/>}/>
+          <Route path="/form" element={<Form/>}/>
           <Route path='/list' element={<List/>}/>
+          <Route path='/pending' element={<PendingParent/>}/>
         </Routes>
     </div>
   );

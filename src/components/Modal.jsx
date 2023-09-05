@@ -1,61 +1,38 @@
 import React, {useState } from 'react'
-import { createModal } from '../api/ModalApi';
+import ReactModal from 'react-modal'
 
-const Modal = () => {
+const Modal = ({childChange , childOpen}) => {
 
-    // useState의 object를 이용해 변경을 체킹한다. spread 문법과 연관되어 있다.
-    const [inputs, setInputs] = useState({
-        id: '',
-        pw: '',
-        nickname: '',
-        name: '',
-        jmfront: '',
-        jmback: ''
-    });
+    let modalOpen = childOpen;
 
-    // getter는 inputs 배열을 통해 한 번에 controll 한다.
-    const {id, pw, nickname, name, jmfront, jmback} = inputs;
+    const [value, setValue] = useState('');
+    const [isOpen, setIsOpen] = useState(modalOpen);
 
-    const postEvent = (e) => {
-        const a = createModal('create', inputs)
-        a.then(response => {
-            if (response.data.status === 200) {
-                alert("보내기 성공함")
-            }
-        })
+    const closeModal = (e) => {
+        setIsOpen(false)
+        childChange(false)
     }
 
-    // setter 주입과 연관되어 있는 change event
     const onChange = (e) => {
-        const {name, value} = e.target;
-        setInputs({
-            ...inputs,
-            [name]: value
-        })
+        const {value} = e.target;
+        setValue(value);
+    }
+
+    const postParent = (e) => {
+        childChange(value, false);
+        setIsOpen(false)
     }
 
   return (
-    <div>
-        <ul>
-            <li>
-                 ID: <input name="id" type='text' value={id} onChange={onChange}/>
-            </li>
-            <li>
-                PW: <input name="pw" type='text' value={pw} onChange={onChange}/>
-            </li>
-            <li>
-                닉네임: <input name="nickname" type='text' value={nickname} onChange={onChange}/>
-            </li>
-            <li>
-                이름: <input name="name" type='text' value={name} onChange={onChange}/>
-            </li>
-            <li>
-                주민번호: <input name="jmfront" type='text' value={jmfront} onChange={onChange}/> - <input name="jmback" type='text' value={jmback} onChange={onChange}/>
-            </li>
-        </ul>
-
-        <button onClick={postEvent}>데이터 보내기</button>
-    </div> 
+    <ReactModal isOpen={isOpen}>
+        <div>Modal</div>
+        <div>부모 컴포넌트에게 보낼 데이터를 입력해주세요: 
+            <input placeholder='데이터를 입력해주세요.' name='value' type='text' value={value} onChange={onChange}>
+            </input>
+        </div>
+        <button onClick={postParent}>데이터 보내기</button>
+        <button onClick={closeModal}>모달 창 닫기</button>
+    </ReactModal>
   )
 }
 
