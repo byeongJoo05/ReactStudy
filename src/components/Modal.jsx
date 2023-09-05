@@ -1,11 +1,8 @@
-import axios from 'axios';
 import React, {useState } from 'react'
 import {useNavigate } from 'react-router-dom';
+import { createModal } from '../api/ModalApi';
 
 const Modal = () => {
-
-    // env를 통해 안전하게 host name을 가져온다.
-    const host = process.env.REACT_APP_HOST_NAME;
 
     const navigate = useNavigate();
 
@@ -27,21 +24,13 @@ const Modal = () => {
         navigate("/");
     }
 
-    // back api와 통신하기 위한 button
-    const postFunc = async() => {
-            console.log(inputs)
-            console.log(host)
-            try {await axios.post(
-                `${host}/create`,
-                inputs
-            ).then(response => {
-                console.log(response.data.status);
-            })}
-            catch (e) {
-                console.log(e)
-            };
-
-            alert("데이터 보내기 완료.")
+    const postEvent = (e) => {
+        const a = createModal('create', inputs)
+        a.then(response => {
+            if (response.data.status === 200) {
+                alert("보내기 성공함")
+            }
+        })
     }
 
     // setter 주입과 연관되어 있는 change event
@@ -74,7 +63,7 @@ const Modal = () => {
         </ul>
 
         <button onClick={cancelFunc}>뒤로 가기</button>
-        <button onClick={postFunc}>데이터 보내기</button>
+        <button onClick={postEvent}>데이터 보내기</button>
     </div> 
   )
 }
