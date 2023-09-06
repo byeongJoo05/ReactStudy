@@ -16,7 +16,7 @@ const List = () => {
     useEffect (() => {
         const getResponse = getList("listall");
         getResponse.then(data => {
-            setValues(data.data)
+            setValues(data?.data)
         })
     }, [])
 
@@ -24,8 +24,8 @@ const List = () => {
     <div>
         <li>데이터의 상태는~? : {status}</li>
         {data && data.map( (d, key) => (
-            <ul>
-                <ListProp title={d.title} description={d.description} key={key}/>
+            <ul key={key}>
+                <ListProp title={d?.title} description={d?.description}/>
             </ul>
         ))}
         <li>성공인가요 실패인가요~? : {ok ? <div>성공</div> : <div>실패</div> }</li>

@@ -3,10 +3,8 @@ import ReactModal from 'react-modal'
 
 const Modal = ({childChange , childOpen}) => {
 
-    let modalOpen = childOpen;
-
     const [value, setValue] = useState('');
-    const [isOpen, setIsOpen] = useState(modalOpen);
+    const [isOpen, setIsOpen] = useState(childOpen);
 
     const closeModal = (e) => {
         setIsOpen(false)
